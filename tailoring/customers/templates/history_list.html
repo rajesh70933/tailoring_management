@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3 class="mb-4">🕘 History</h3>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>Dress Type</th>
+                <th>Price</th>
+                <th>Delivery Date</th>
+                <th>Deleted At</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for h in history %}
+            <tr>
+                <td>{{ h.customer_name }}</td>
+                <td>{{ h.phone }}</td>
+                <td>{{ h.dress_type }}</td>
+                <td>₹{{ h.price }}</td>
+                <td>{{ h.delivery_date }}</td>
+                <td>{{ h.deleted_at }}</td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center text-muted">
+                    No history found
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

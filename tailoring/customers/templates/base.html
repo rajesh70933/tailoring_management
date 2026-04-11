@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tailoring Management</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #f4f6f9;
+        }
+
+        /* 🔷 SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 230px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            padding: 20px;
+            color: white;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.3);
+            font-weight: bold;
+        }
+
+        .sidebar a.active {
+            background: rgba(255,255,255,0.3);
+            font-weight: bold;
+        }
+
+
+        /* 🔶 MAIN CONTENT */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* 🔝 TOPBAR */
+        .topbar {
+            position: fixed;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* 📦 CONTENT BOX */
+        .card-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .btn-custom {
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .btn-custom:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔷 SIDEBAR -->
+<div class="sidebar">
+    <h3>✂️ Boutique</h3>
+
+    <!-- ✅ NEW HOME BUTTON -->
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">🏠 Home</a>
+
+<a href="/dashboard/" class="{% if 'dashboard' in request.path %}active{% endif %}">📊 Dashboard</a>
+
+<a href="/customers/" class="{% if 'customers' in request.path %}active{% endif %}">👥 Customers</a>
+
+<a href="/orders/" class="{% if 'orders' in request.path %}active{% endif %}">📦 Orders</a>
+
+<a href="/history/" class="{% if 'history' in request.path %}active{% endif %}">📜 History</a>
+
+</div>
+
+
+<!-- 🔶 MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- 🔝 TOPBAR -->
+    <div class="topbar">
+        <h5 class="mb-0">Lakshmi Ladies Tailoring</h5>
+
+        <button onclick="history.back()" class="btn btn-secondary">
+            ⬅ Back
+        </button>
+    </div>
+
+    <!-- 📦 PAGE CONTENT -->
+    <div class="card-box">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>

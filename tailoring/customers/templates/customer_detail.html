@@ -1,0 +1,21 @@
+<h2>Customer Details</h2>
+
+<p><b>Name:</b> {{ customer.name }}</p>
+<p><b>Phone:</b> {{ customer.phone }}</p>
+
+<h3>Measurements</h3>
+
+{% if measurement %}
+
+<p>Chest: {{ measurement.chest }}</p>
+<p>Bust: {{ measurement.bust }}</p>
+<p>Waist: {{ measurement.waist }}</p>
+<p>Hip: {{ measurement.hip }}</p>
+<p>Shoulder: {{ measurement.shoulder }}</p>
+<p>Sleeve Length: {{ measurement.sleeve_length }}</p>
+
+{% else %}
+
+<p>No measurements added.</p>
+
+{% endif %}

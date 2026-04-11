@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .form-card {
+        max-width: 500px;
+        margin: auto;
+        padding: 30px;
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .form-title {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .btn-custom {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 8px;
+    }
+
+    .btn-custom:hover {
+        background: linear-gradient(135deg, #5a67d8, #6b46c1);
+    }
+</style>
+
+<div class="form-card">
+
+    <!-- 🔙 Back Button -->
+    <a href="/customers/" class="btn btn-outline-secondary mb-3">
+        ⬅ Back
+    </a>
+
+    <!-- 🧾 Title -->
+    <h3 class="form-title">➕ Add Customer</h3>
+
+    <!-- 📝 FORM -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">👤 Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter customer name" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">📞 Phone</label>
+            <input type="text" name="phone" class="form-control" placeholder="Enter phone number" required>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-custom">
+                💾 Save Customer
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

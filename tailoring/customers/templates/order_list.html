@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4 class="mb-3">Orders List</h4>
+
+<!-- 🔍 Search -->
+<form method="GET" class="mb-3 d-flex gap-2">
+    <input type="text" name="q" placeholder="Search customer..."
+           class="form-control">
+
+    <button type="submit" class="btn btn-primary">
+        Search
+    </button>
+</form>
+
+<!-- ➕ Buttons -->
+<div class="mb-3">
+    <a href="/add-order/" class="btn btn-success">➕ Add Order</a>
+
+    <a href="/today-deliveries/" class="btn btn-info">
+        📅 Today Deliveries
+    </a>
+</div>
+
+<!-- 📦 Orders Table -->
+<table class="table table-bordered table-hover align-middle">
+
+<thead class="table-dark">
+<tr>
+    <th>Customer</th>
+    <th>Dress Type</th>
+    <th>Price</th>
+    <th>Delivery Date</th>
+    <th>Status</th>
+    <th>Payment</th> <!-- ✅ NEW -->
+    <th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for order in orders %}
+
+<tr>
+    <!-- Customer -->
+    <td>
+        <a href="/customer-measurements/{{ order.customer.id }}/"
+           class="text-decoration-none fw-semibold">
+            {{ order.customer.name }}
+        </a>
+    </td>
+
+    <!-- Dress -->
+    <td>{{ order.dress_type }}</td>
+
+    <!-- Price -->
+    <td>₹{{ order.price }}</td>
+
+    <!-- Delivery -->
+    <td>{{ order.delivery_date }}</td>
+
+    <!-- Status -->
+    <td>
+        {% if order.status == "pending" %}
+            <span class="badge bg-warning">Pending</span>
+
+        {% elif order.status == "stitching" %}
+            <span class="badge bg-info">Stitching</span>
+
+        {% elif order.status == "ready" %}
+            <span class="badge bg-success">Ready</span>
+
+        {% elif order.status == "delivered" %}
+            <span class="badge bg-primary">Delivered</span>
+        {% endif %}
+    </td>
+
+    <!-- 💰 Payment Status -->
+    <td>
+        {% if order.payment_status == "paid" %}
+            <span class="badge bg-success">Paid</span>
+        {% else %}
+            <a href="/mark-paid/{{ order.id }}/" 
+               class="btn btn-success btn-sm">
+               Mark Paid
+            </a>
+        {% endif %}
+    </td>
+
+
+    <!-- Actions -->
+    <td>
+        <a href="/edit-order/{{ order.id }}/" class="btn btn-warning btn-sm">Edit</a>
+
+        <a href="/delete-order/{{ order.id }}/" 
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Are you sure?')">
+           Delete
+        </a>
+    </td>
+
+</tr>
+
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center text-muted">
+        No orders found
+    </td>
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

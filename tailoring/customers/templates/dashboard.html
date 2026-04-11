@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.card-box {
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.3s;
+}
+.card-box:hover {
+    transform: scale(1.05);
+}
+
+.bg1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+.bg2 { background: linear-gradient(135deg, #f7971e, #ffd200); }
+.bg3 { background: linear-gradient(135deg, #00c6ff, #0072ff); }
+.bg4 { background: linear-gradient(135deg, #11998e, #38ef7d); }
+.bg5 { background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+.bg6 { background: linear-gradient(135deg, #8e2de2, #4a00e0); }
+
+</style>
+
+<h3 class="mb-4">📊 Dashboard</h3>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card-box bg1">Total Orders<br>{{ total }}</div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-box bg2">Pending<br>{{ pending }}</div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-box bg3">Stitching<br>{{ stitching }}</div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-box bg4">Ready<br>{{ ready }}</div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-box bg5">Delivered<br>{{ delivered }}</div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-box bg6">Paid Orders<br>{{ paid }}</div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-box bg3">Today's Deliveries<br>{{ today_deliveries }}</div>
+    </div>
+
+
+
+</div>
+<div class="row g-4 mt-2">
+
+    <div class="col-md-4">
+        <div class="card-box bg-success">
+            💰 Today Revenue<br>
+            ₹{{ today_revenue }}
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card-box bg-primary">
+            📅 Weekly Revenue<br>
+            ₹{{ weekly_revenue }}
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card-box bg-dark">
+            📆 Monthly Revenue<br>
+            ₹{{ monthly_revenue }}
+        </div>
+    </div>
+
+</div>
+
+
+<!-- 📈 CHART -->
+<div class="mt-5">
+    <h4>📈 Order Status Overview</h4>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Pending', 'Stitching', 'Ready', 'Delivered'],
+        datasets: [{
+            label: 'Orders',
+            data: [{{ pending }}, {{ stitching }}, {{ ready }}, {{ delivered }}],
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1,        // ✅ only whole numbers
+                    precision: 0        // ✅ remove decimals
+                }
+            }
+        }
+    }
+});
+</script>
+
+
+{% endblock %}

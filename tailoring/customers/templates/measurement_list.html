@@ -1,0 +1,27 @@
+<h2>Measurements</h2>
+
+<table border="1">
+    <tr>
+        <th>Customer</th>
+        <th>Chest</th>
+        <th>Bust</th>
+        <th>Waist</th>
+        <th>Hip</th>
+        <th>Shoulder</th>
+        <th>Sleeve Length</th>
+    </tr>
+
+    {% for m in measurements %}
+    <tr>
+        <td>{{ m.customer.name }}</td>
+        <td>{{ m.chest }}</td>
+        <td>{{ m.bust }}</td>
+        <td>{{ m.waist }}</td>
+        <td>{{ m.hip }}</td>
+        <td>{{ m.shoulder }}</td>
+        <td>{{ m.sleeve_length }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
