@@ -30,61 +30,59 @@
 <div class="row g-4">
 
     <div class="col-md-3">
-        <div class="card-box bg1">Total Orders<br>{{ total }}</div>
+        <div class="card-box bg1">Total Orders<br>{{ total|default:0 }}</div>
     </div>
 
     <div class="col-md-3">
-        <div class="card-box bg2">Pending<br>{{ pending }}</div>
+        <div class="card-box bg2">Pending<br>{{ pending|default:0 }}</div>
     </div>
 
     <div class="col-md-3">
-        <div class="card-box bg3">Stitching<br>{{ stitching }}</div>
+        <div class="card-box bg3">Stitching<br>{{ stitching|default:0 }}</div>
     </div>
 
     <div class="col-md-3">
-        <div class="card-box bg4">Ready<br>{{ ready }}</div>
+        <div class="card-box bg4">Ready<br>{{ ready|default:0 }}</div>
     </div>
 
     <div class="col-md-3">
-        <div class="card-box bg5">Delivered<br>{{ delivered }}</div>
+        <div class="card-box bg5">Delivered<br>{{ delivered|default:0 }}</div>
     </div>
 
     <div class="col-md-3">
-        <div class="card-box bg6">Paid Orders<br>{{ paid }}</div>
+        <div class="card-box bg6">Paid Orders<br>{{ paid|default:0 }}</div>
     </div>
 
     <div class="col-md-3">
-        <div class="card-box bg3">Today's Deliveries<br>{{ today_deliveries }}</div>
+        <div class="card-box bg3">Today's Deliveries<br>{{ today_deliveries|default:0 }}</div>
     </div>
-
-
 
 </div>
+
 <div class="row g-4 mt-2">
 
     <div class="col-md-4">
         <div class="card-box bg-success">
             💰 Today Revenue<br>
-            ₹{{ today_revenue }}
+            ₹{{ today_revenue|default:0 }}
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="card-box bg-primary">
             📅 Weekly Revenue<br>
-            ₹{{ weekly_revenue }}
+            ₹{{ weekly_revenue|default:0 }}
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="card-box bg-dark">
             📆 Monthly Revenue<br>
-            ₹{{ monthly_revenue }}
+            ₹{{ monthly_revenue|default:0 }}
         </div>
     </div>
 
 </div>
-
 
 <!-- 📈 CHART -->
 <div class="mt-5">
@@ -101,22 +99,39 @@ new Chart(ctx, {
         labels: ['Pending', 'Stitching', 'Ready', 'Delivered'],
         datasets: [{
             label: 'Orders',
-            data: [{{ pending }}, {{ stitching }}, {{ ready }}, {{ delivered }}],
+            data: [
+    Number("{{ pending }}"),
+    Number("{{ stitching }}"),
+    Number("{{ ready }}"),
+    Number("{{ delivered }}")
+],
+            backgroundColor: [
+                '#f39c12',
+                '#3498db',
+                '#2ecc71',
+                '#9b59b6'
+            ],
+            borderRadius: 8
         }]
     },
     options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true,
                 ticks: {
-                    stepSize: 1,        // ✅ only whole numbers
-                    precision: 0        // ✅ remove decimals
+                    stepSize: 1,
+                    precision: 0
                 }
             }
         }
     }
 });
 </script>
-
 
 {% endblock %}
