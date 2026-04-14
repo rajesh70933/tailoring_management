@@ -1,1 +1,1 @@
-web: gunicorn tailoring.tailoring.wsgi
+web: gunicorn tailoring.wsgi
